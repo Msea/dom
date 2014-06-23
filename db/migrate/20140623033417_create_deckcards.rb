@@ -3,7 +3,7 @@ class CreateDeckcards < ActiveRecord::Migration
     create_table :deckcards do |t|
       t.integer :player_id
       t.integer :card_id
-      t.string :status #lib, hand, discard, play, duration, inplay
+      t.string :status  #lib, hand, discard, play, duration, inplay
 
       t.timestamps
     end
