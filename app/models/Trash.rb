@@ -1,4 +1,4 @@
 class Trash
 end
 
-#deckcards where player_id = 2
+#deckcards where player_id = nil
