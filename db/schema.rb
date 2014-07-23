@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140623035307) do
+ActiveRecord::Schema.define(version: 20140623033439) do
 
   create_table "cards", force: true do |t|
     t.string   "name"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20140623035307) do
     t.string   "kind"
     t.string   "picture"
     t.integer  "stock"
+    t.boolean  "in_game?"
+    t.boolean  "in_randomizer?"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -27,6 +29,7 @@ ActiveRecord::Schema.define(version: 20140623035307) do
     t.integer  "player_id"
     t.integer  "card_id"
     t.string   "status"
+    t.string   "library_position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -50,9 +53,9 @@ ActiveRecord::Schema.define(version: 20140623035307) do
   add_index "ns", ["reset_password_token"], name: "index_ns_on_reset_password_token", unique: true
 
   create_table "players", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
   end
 
 end

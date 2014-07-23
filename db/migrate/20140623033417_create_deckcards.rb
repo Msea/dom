@@ -4,6 +4,7 @@ class CreateDeckcards < ActiveRecord::Migration
       t.integer :player_id
       t.integer :card_id
       t.string :status  #lib, hand, discard, play, duration, inplay
+      t.string :library_position
 
       t.timestamps
     end
