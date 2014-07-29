@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 20140729180755) do
     t.integer  "actions_left",   default: 1
     t.integer  "buys_left",      default: 1
     t.integer  "buying_power",   default: 0
-    t.string   "phase",          default: "action"
+    t.string   "phase",          default: "treasure"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

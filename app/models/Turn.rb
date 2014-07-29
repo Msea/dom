@@ -8,7 +8,7 @@ include Playcards
     # while phase == "action"
     #   play_action_phase
     # end
-    while phase == "treasure" #by rules seems to not exist, however seems like should play treasures before buy because grandmarket
+    if phase == "treasure" #by rules seems to not exist, however seems like should play treasures before buy because grandmarket
       play_treasure_phase
     end
     # while phase == "buy"
@@ -37,13 +37,14 @@ include Playcards
 
   def play_treasure_phase
     phase_not_over = true
-    while (playable_treasures.length >0 && phase_not_over)
+    while (game_player.playable_treasures.length >0 && phase_not_over)
      id_of_deck_card = gets.chomp.to_i
-     treasure_card = playable_treasure.find(id_of_deck_card)
-     play_treause_card(treause_card)
+     treasure_card = game_player.playable_treasures.find(id_of_deck_card)
+     play_treasure_card(treasure_card)
      answer = gets.chomp
      phase_not_over = false if answer != "yes"
     end
+    self.phase = "buy"
   end
 
   def play_buy_phase
