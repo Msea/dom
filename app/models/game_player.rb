@@ -3,9 +3,11 @@ class GamePlayer < ActiveRecord::Base
   belongs_to :player
   has_many :deckcards
   has_many :cards, through: :deckcards
+  has_many :turns
    #lib, hand, discard, play, duration, inplay
 
   def draw_card
+    #if no top card, then shuffle
     top_card = deckcards.find_by(library_position: 1)
     top_card.status = "hand"
     top_card.library_position = nil

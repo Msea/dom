@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140623033439) do
+ActiveRecord::Schema.define(version: 20140729180755) do
 
   create_table "cards", force: true do |t|
     t.string   "name"
@@ -19,17 +19,37 @@ ActiveRecord::Schema.define(version: 20140623033439) do
     t.string   "kind"
     t.string   "picture"
     t.integer  "stock"
-    t.boolean  "in_game?"
     t.boolean  "in_randomizer?"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "deckcards", force: true do |t|
-    t.integer  "player_id"
+    t.integer  "game_player_id"
     t.integer  "card_id"
     t.string   "status"
     t.string   "library_position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "game_cards", force: true do |t|
+    t.integer  "card_id"
+    t.integer  "game_id"
+    t.integer  "stock",      default: 10
+    t.boolean  "depleted?",  default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "game_players", force: true do |t|
+    t.integer  "player_id"
+    t.integer  "game_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "games", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -54,6 +74,15 @@ ActiveRecord::Schema.define(version: 20140623033439) do
 
   create_table "players", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "turns", force: true do |t|
+    t.integer  "game_player_id"
+    t.integer  "actions_left"
+    t.integer  "buys_left"
+    t.integer  "buying_power"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

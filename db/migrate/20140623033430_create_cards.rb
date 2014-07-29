@@ -5,8 +5,7 @@ class CreateCards < ActiveRecord::Migration
       t.integer :cost
       t.string :kind
       t.string :picture
-      t.integer :stock
-      t.boolean :in_game?
+      t.integer :stock #take this out later and do by type? change to default_stock? change to null unless exception?
       t.boolean :in_randomizer?
 
       t.timestamps

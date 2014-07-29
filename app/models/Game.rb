@@ -1,12 +1,10 @@
 class Game < ActiveRecord::Base
-
   has_many :game_players
   has_many :players, through: :game_players
+  has_many :game_cards
+  has_many :cards, through: :game_cards
 
-  attr_accessor :cards #could also make gamecard table with card_id, stock columns. Not doing for now. Not sure how I feel about this.
-
-  def initialize
-    # need to like super and stuff
+  def choose_cards
     copper = Card.find_by(name: "copper")
     silver = Card.find_by(name: "silver")
     gold = Card.find_by(name: "gold")
@@ -14,26 +12,36 @@ class Game < ActiveRecord::Base
     duchy = Card.find_by(name: "duchy")
     provence = Card.find_by(name: "provence")
     curse = Card.find_by(name: "curse")
-    @cards = {}
-    [copper, silver, gold, estate, duchy, provence, curse].each {|card| @cards[card] = card.stock}
-  end
-
-
-  def choose_cards
-    Card.randomize.each {|card| cards[card] = card.stock}
+    [copper, silver, gold, estate, duchy, provence, curse].each { |card| GameCard.create(game_id: id, card_id: card.id, stock: card.stock)}
+    Card.randomize.each {|card| GameCard.create(game_id: id, card_id: card.id, stock: card.stock)}
+    #further dev:
     #take optional blockof prefrences
     #include the following logic here: bane, black market, ruins, colonys
     #include number of players
   end
 
   def decrement(card)
-    @cards[card] -=1
+    GameCard.where(game_id: id, card_id: card.id).first.decrement
   end
 
   def piles?
-    done = 0
-    cards.each {|card, stock| done +=1 if stock <= 0}
-    done>=3 ? true : false
+    game_cards.where(depleted?: true).length >=3 ? true : false
+  end
+
+  def play
+    #eventually this can't all be in one method to maintain state
+
+    #choose cards
+    #gameplayers draw opening hands
+    # a gameplayer goes first
+    #gameplayers take turns
+      #a gameplayer can play an action, reaction, or treasure card
+      #gameplayer can continue to play until he runs out of playable cards or enters buy phase
+      #gameplayer can buy until he runs out of buys or finishes buy phase
+      #cards "in play" or unplayed get discarded
+      #gameplayer draws 5 cards (shuffleing if needed)
+      #end of turn
+    #until someone wins
   end
 
 end

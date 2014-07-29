@@ -1,7 +1,3 @@
-#player_1 = Player.create({name: "table"})
-#player_1 = Player.create({name: "trash"})
-
-
 card_1 = Card.create({name: "copper", cost: 0, kind: "treasure", stock: 60, in_randomizer?: false})
 card_2 = Card.create({name: "silver", cost: 3, kind: "treasure", stock: 40, in_randomizer?: false})
 card_3 = Card.create({name: "gold", cost: 6, kind: "treasure", stock: 30, in_randomizer?: false})
