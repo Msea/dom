@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20140729180755) do
   create_table "game_players", force: true do |t|
     t.integer  "player_id"
     t.integer  "game_id"
+    t.integer  "turn_order"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -35,10 +35,10 @@ class GamePlayer < ActiveRecord::Base
   end
 
   def be_dealt
-    copper_id = Card.find_by(name: "copper")
-    estate_id = Card.find_by(name: "estate")
-    7.times {Deckcard.create({player_id: id, card_id: copper_id, status: "discard"})}
-    3.times {Deckcard.create({player_id: id, card_id: estate_id, status: "discard"})}
+    copper_id = Card.find_by(name: "copper").id
+    estate_id = Card.find_by(name: "estate").id
+    7.times {Deckcard.create({game_player_id: id, card_id: copper_id, status: "discard"})}
+    3.times {Deckcard.create({game_player_id: id, card_id: estate_id, status: "discard"})}
     shuffle
   end
 
