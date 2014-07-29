@@ -7,8 +7,11 @@ class GamePlayer < ActiveRecord::Base
    #lib, hand, discard, play, duration, inplay
 
   def draw_card
-    #if no top card, then shuffle
-    top_card = deckcards.find_by(library_position: 1)
+    #change for chapel if no card to draw
+    if ! (top_card = deckcards.find_by(library_position: 1))
+      shuffle
+      top_card = deckcards.find_by(library_position: 1)
+    end
     top_card.status = "hand"
     top_card.library_position = nil
     top_card.save
@@ -19,8 +22,15 @@ class GamePlayer < ActiveRecord::Base
     top_card
   end
 
+  def reveal_top_card
+  end
+
   def draw_5
     5.times {draw_card}
+  end
+
+  def draw(n)
+    n.times {draw_card}
   end
 
   def shuffle
@@ -58,17 +68,29 @@ class GamePlayer < ActiveRecord::Base
     deckcards.where(status: "discard")
   end
 
-  def discard_cards
+  def discarded_cards
     Card.joins(:deckcards).where(:"deckcards.status" => "discard").where(:"deckcards.player_id" => id)
   end
 
   def hand
+    deckcards.where(status: "hand")
+  end
+
+  def deck_cards_for_discard
+    deckcards.where(status: ["hand", "inplay"])
+  end
+
+  def hand_cards
     Card.joins(:deckcards).where(:"deckcards.status" => "hand").where(:"deckcards.player_id" => id)
   end
 
-  # def self.deal
-  #   #Player.where("id>2").each {|player| player.be_dealt}
-  #   each {|player| player.be_dealt}
-  # end
+  def playable_actions
+    deckcards.joins(:card).where(:"cards.kind" => "action", :"deckcards.status" => "hand")
+    #and whatever other logic prince
+  end
+
+  def playable_treasures
+    deckcards.joins(:card).where(:"cards.kind" => "treasure", :"deckcards.status" => "hand")
+  end
 
 end

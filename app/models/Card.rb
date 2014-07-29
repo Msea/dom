@@ -6,4 +6,7 @@ class Card < ActiveRecord::Base
     cards.shuffle[0...10]
   end
 
+  def play
+  end
+
 end

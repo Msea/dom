@@ -5,6 +5,7 @@ class CreateTurn < ActiveRecord::Migration
       t.integer :actions_left, default: 1
       t.integer :buys_left, default: 1
       t.integer :buying_power, default: 0
+      t.string :phase, default: "treasure" #action, buy, #over, #special black market buy
 
       t.timestamps
     end

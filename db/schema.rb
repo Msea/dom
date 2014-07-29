@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20140729180755) do
     t.integer  "game_player_id"
     t.integer  "card_id"
     t.string   "status"
-    t.string   "library_position"
+    t.integer  "library_position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -81,9 +81,10 @@ ActiveRecord::Schema.define(version: 20140729180755) do
 
   create_table "turns", force: true do |t|
     t.integer  "game_player_id"
-    t.integer  "actions_left"
-    t.integer  "buys_left"
-    t.integer  "buying_power"
+    t.integer  "actions_left",   default: 1
+    t.integer  "buys_left",      default: 1
+    t.integer  "buying_power",   default: 0
+    t.string   "phase",          default: "action"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
