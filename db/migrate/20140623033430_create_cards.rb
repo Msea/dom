@@ -7,6 +7,7 @@ class CreateCards < ActiveRecord::Migration
       t.string :picture
       t.integer :stock #take this out later and do by type? change to default_stock? change to null unless exception?
       t.boolean :in_randomizer?
+      t.string :expansion
 
       t.timestamps
     end

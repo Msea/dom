@@ -69,7 +69,7 @@ class GamePlayer < ActiveRecord::Base
   end
 
   def discarded_cards
-    Card.joins(:deckcards).where(:"deckcards.status" => "discard").where(:"deckcards.player_id" => id)
+    Card.joins(:deckcards).where(:"deckcards.status" => "discard").where(:"deckcards.game_player_id" => id)
   end
 
   def hand
